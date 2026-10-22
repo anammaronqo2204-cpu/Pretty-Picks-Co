@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listProducts, getFacets, listCollections, hasSalesData, ShopFilters } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
-import { Petals, BlossomTree } from "@/components/Decor";
+import { BlossomBackdrop } from "@/components/Decor";
 import { DELIVERY_BUCKETS } from "@/lib/constants";
 
 export const metadata = { title: "Shop" };
@@ -19,9 +19,8 @@ export default async function Shop({ searchParams }: { searchParams: Promise<Rec
   );
   return (
     <div className="relative">
-      <div className="relative overflow-hidden h-48 sm:h-56 flex items-end" style={{ background: "radial-gradient(ellipse at 80% 0%, #2a1230, #0d0710 70%)" }}>
-        <Petals count={10} />
-        <BlossomTree className="absolute right-0 -bottom-10 w-56 sm:w-72 opacity-60" flip />
+      <div className="relative overflow-hidden h-48 sm:h-56 flex items-end" >
+        <BlossomBackdrop strength="soft" />
         <div className="relative mx-auto max-w-6xl px-4 pb-6 w-full">
           <h1 className="heading text-4xl sm:text-5xl">{title}</h1>
           <p className="text-cream/70 mt-1">{col?.description ?? "Pretty things, hand-picked for you."}</p>
@@ -52,7 +51,7 @@ export default async function Shop({ searchParams }: { searchParams: Promise<Rec
         <div>
           <p className="text-sm text-cream/60 mb-4" aria-live="polite">{items.length} {items.length === 1 ? "pick" : "picks"}</p>
           {items.length === 0 ? (
-            <div className="card p-10 text-center"><p className="heading text-2xl">No pretty matches… yet</p><p className="text-cream/70 mt-2">Try clearing filters – or ask us to source it for you.</p><div className="flex gap-3 justify-center mt-5"><Link href="/shop" className="btn btn-ghost">Clear filters</Link><Link href="/request" className="btn btn-primary">Request an Item</Link></div></div>
+            <div className="card p-10 text-center"><p className="heading text-2xl">No pretty matches… yet</p><p className="text-cream/70 mt-2">Try clearing filters, or ask us to source it for you.</p><div className="flex gap-3 justify-center mt-5"><Link href="/shop" className="btn btn-ghost">Clear filters</Link><Link href="/request" className="btn btn-primary">Request an Item</Link></div></div>
           ) : <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">{items.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}</div>}
         </div>
       </div>

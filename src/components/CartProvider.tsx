@@ -13,18 +13,6 @@ const C = createContext<Ctx | null>(null);
 export const useCart = () => { const c = useContext(C); if (!c) throw new Error("no cart"); return c; };
 const mkKey = (i: { productId: number; size?: string | null; colour?: string | null }) => `${i.productId}|${i.size ?? ""}|${i.colour ?? ""}`;
 
-export function petalBurst(x: number, y: number) {
-  if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  for (let i = 0; i < 12; i++) {
-    const el = document.createElement("span");
-    el.className = "burst-petal";
-    const a = (Math.PI * 2 * i) / 12, r = 60 + Math.random() * 50;
-    el.style.cssText = `left:${x}px;top:${y}px;width:10px;height:14px;border-radius:80% 0 80% 0;background:${i % 2 ? "#ff3d8b" : "#e8a0b8"};--bx:${Math.cos(a) * r}px;--by:${Math.sin(a) * r}px`;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 950);
-  }
-}
-
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [wishlist, setWish] = useState<number[]>([]);
@@ -42,7 +30,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => { if (ready) localStorage.setItem("ppc_wish", JSON.stringify(wishlist)); }, [wishlist, ready]);
   const flash = (m: string) => { setToast(m); setTimeout(() => setToast(null), 2200); };
 
-  const add: Ctx["add"] = useCallback((i, qty = 1, origin) => {
+  const add: Ctx["add"] = useCallback((i, qty = 1) => {
     const key = mkKey(i);
     setItems((prev) => {
       const ex = prev.find((p) => p.key === key);
@@ -50,8 +38,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return [...prev, { ...i, key, quantity: qty }];
     });
     pixel.addToCart({ id: i.productId, title: i.title, price: i.price, quantity: qty });
-    if (origin) petalBurst(origin.x, origin.y);
-    flash(`Added ${i.title} to your bag 💗`);
+    flash(`Added ${i.title} to your bag `);
   }, []);
   const update: Ctx["update"] = (key, patch) => setItems((prev) => {
     const next = prev.map((p) => { if (p.key !== key) return p; const n = { ...p, ...patch }; n.key = mkKey(n); return n; });

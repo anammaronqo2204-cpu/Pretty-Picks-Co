@@ -40,7 +40,7 @@ export default async function OrderDetail({ params, searchParams }: { params: Pr
           <p className="flex justify-between"><span>Discount {o.discountCode && `(${o.discountCode})`}</span><span>−{zar(o.discount)}</span></p>
           <p className="flex justify-between"><span>Delivery fee</span><span>{zar(o.shipping)}</span></p>
           <p className="flex justify-between font-medium"><span>Total (revenue)</span><span className="price">{zar(o.total)}</span></p>
-          <p className="flex justify-between text-cream/60"><span>Product cost 🔒</span><span>{zar(cost)}</span></p>
+          <p className="flex justify-between text-cream/60"><span>Product cost </span><span>{zar(cost)}</span></p>
           <p className="flex justify-between text-cream/60"><span>Transaction fee</span><span>{zar(o.transactionFee)}</span></p>
           <p className="flex justify-between text-cream/60"><span>Refunded</span><span>{zar(o.refundAmount)}</span></p>
           <p className="flex justify-between text-gold"><span>Est. gross profit</span><span>{zar(gp.toFixed(2))}</span></p>
@@ -50,7 +50,7 @@ export default async function OrderDetail({ params, searchParams }: { params: Pr
           {proofs.length === 0 && <p className="text-cream/60">No proof uploaded yet.</p>}
           {proofs.map((p) => (
             <div key={p.id} className="rounded-xl border border-moon/20 p-3 space-y-2">
-              <p><a href={`/api/media/${p.mediaId}`} target="_blank" className="underline text-moon">📎 {p.fileName}</a> <span className="badge bg-moon/15">{p.status}</span></p>
+              <p><a href={`/api/media/${p.mediaId}`} target="_blank" className="underline text-moon">{p.fileName}</a> <span className="badge bg-moon/15">{p.status}</span></p>
               <p className="text-xs text-cream/50">{p.createdAt.toLocaleString("en-ZA")}{p.reviewNote && ` · ${p.reviewNote}`}</p>
               {p.status === "pending" && (
                 <form action={reviewProofAction} className="space-y-2">
@@ -65,7 +65,7 @@ export default async function OrderDetail({ params, searchParams }: { params: Pr
           {o.paymentStatus !== "verified" && proofs.every((p) => p.status !== "pending") && (
             <form action={verifyWithoutProofAction} className="space-y-2 pt-2 border-t border-moon/10">
               <input type="hidden" name="orderId" value={o.id} />
-              <label className="flex gap-2 text-xs items-start"><input type="checkbox" name="fundsConfirmed" className="mt-0.5" /> Funds cleared – verify without proof</label>
+              <label className="flex gap-2 text-xs items-start"><input type="checkbox" name="fundsConfirmed" className="mt-0.5" /> Funds cleared. Verify without proof</label>
               <button className="btn btn-ghost !min-h-9 !py-1 text-sm w-full">Mark payment verified</button>
             </form>
           )}
@@ -73,8 +73,8 @@ export default async function OrderDetail({ params, searchParams }: { params: Pr
       </div>
 
       <section className="card p-5 overflow-x-auto"><h2 className="heading text-xl mb-1">Items & fulfilment</h2>
-        <p className="text-xs text-cream/60 mb-3">Track each item separately – items from different suppliers ship separately. Supplier ordering is blocked until payment is verified.</p>
-        <table className="w-full text-sm"><thead><tr>{["Item", "Supplier 🔒", "Price / cost", "Est.", "Fulfilment step", "Supplier order ref", "Tracking", ""].map((h) => <th key={h} className={th}>{h}</th>)}</tr></thead>
+        <p className="text-xs text-cream/60 mb-3">Track each item separately. Items from different suppliers ship separately. Supplier ordering is blocked until payment is verified.</p>
+        <table className="w-full text-sm"><thead><tr>{["Item", "Supplier ", "Price / cost", "Est.", "Fulfilment step", "Supplier order ref", "Tracking", ""].map((h) => <th key={h} className={th}>{h}</th>)}</tr></thead>
           <tbody>{items.map((i) => {
             const url = links.find((l) => l.id === i.productId)?.url;
             return (
@@ -104,7 +104,7 @@ export default async function OrderDetail({ params, searchParams }: { params: Pr
           <div><label className="label" htmlFor="status">Order status (customer-visible)</label><select id="status" name="status" defaultValue={o.status} className="input">{Object.entries(ORDER_STATUSES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
           <div><label className="label" htmlFor="paymentStatus">Payment status (separate from fulfilment)</label><select id="paymentStatus" name="paymentStatus" defaultValue={o.paymentStatus} className="input">{Object.entries(PAYMENT_STATUSES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
           <div><label className="label" htmlFor="refundAmount">Refund amount (R)</label><input id="refundAmount" name="refundAmount" type="number" step="0.01" min="0" defaultValue={o.refundAmount} className="input" /></div>
-          <div><label className="label" htmlFor="internalNotes">Internal notes 🔒</label><textarea id="internalNotes" name="internalNotes" rows={3} defaultValue={o.internalNotes} className="input" /></div>
+          <div><label className="label" htmlFor="internalNotes">Internal notes </label><textarea id="internalNotes" name="internalNotes" rows={3} defaultValue={o.internalNotes} className="input" /></div>
           <button className="btn btn-primary w-full">Update order</button>
         </form>
         <section className="card p-5"><h2 className="heading text-xl mb-3">Payment audit trail</h2>

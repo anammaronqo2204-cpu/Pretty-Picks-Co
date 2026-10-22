@@ -25,14 +25,14 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   bank: { bankName: "", accountName: "", accountNumber: "", branchCode: "", accountType: "Cheque", verified: false },
 };
 
-const DRAFT = "\n\n_DRAFT – review with a legal adviser before launch._";
+const DRAFT = "\n\n_DRAFT: review with a legal adviser before launch._";
 
 export const DEFAULT_POLICIES: { slug: string; title: string; body: string }[] = [
   { slug: "shipping", title: "Shipping & Delivery", body: `## How delivery works
 Most Pretty Picks Co. products are sourced to order from third-party suppliers. We place your order with the supplier only **after your payment has been verified**.
 
 ## Delivery estimates
-Each product shows its own estimated arrival range (for example "Estimated arrival: 7–14 days"). Estimates count from payment verification and are estimates, not guarantees. Supplier and courier delays can happen; we'll keep you updated if anything changes.
+Each product shows its own estimated arrival range (for example "Estimated arrival: 7 to 14 days"). Estimates count from payment verification and are estimates, not guarantees. Supplier and courier delays can happen; we'll keep you updated if anything changes.
 
 ## Multiple suppliers
 Orders containing items from different suppliers may arrive in separate parcels on different dates.
@@ -48,7 +48,7 @@ Nothing in this policy limits your rights under the Consumer Protection Act 68 o
 ## Defective, damaged, incorrect or misdescribed items
 1. Contact us within 7 days of delivery via WhatsApp or email with your order number.
 2. Include clear photos of the item, the issue and the packaging.
-3. We'll review and confirm next steps – repair, replacement or refund – in line with the CPA. Where the CPA's 6-month implied warranty for defective goods applies, it is honoured.
+3. We'll review and confirm next steps (repair, replacement or refund) in line with the CPA. Where the CPA's 6-month implied warranty for defective goods applies, it is honoured.
 
 ## Change of mind
 Under ECTA you may cancel an online purchase within 7 days of receiving goods. Items must be unused, in original packaging; you may be responsible for return delivery costs. Hygiene items (e.g. opened beauty products, earrings) may be excluded where permitted by law.
@@ -67,7 +67,7 @@ We only purchase the item once you accept the quote and your payment is verified
 We currently accept EFT (bank transfer). Use your order reference as the payment reference and upload your proof of payment.
 
 ## Verification
-A proof of payment is not confirmation that funds have cleared. Your order is confirmed only once we see the funds in our account. This usually takes 1–3 business days for inter-bank transfers.
+A proof of payment is not confirmation that funds have cleared. Your order is confirmed only once we see the funds in our account. This usually takes 1 to 3 business days for inter-bank transfers.
 
 ## Unpaid orders
 Orders not paid within 48 hours may be cancelled.
@@ -134,8 +134,8 @@ const PRODUCTS: P[] = [
 ];
 
 const DESC: Record<string, string> = {
-  "pink-satin-bow-bag": "A soft satin handbag finished with an oversized bow – the kind of bag that makes a plain outfit look intentional. Fits your phone, lip gloss and keys.",
-  "rose-gold-jewellery-set": "A matching rose-gold-tone set of necklace, bracelet and stud earrings. Fashion jewellery (plated metal) – keep dry for the longest shine.",
+  "pink-satin-bow-bag": "A soft satin handbag finished with an oversized bow. The kind of bag that makes a plain outfit look intentional. Fits your phone, lip gloss and keys.",
+  "rose-gold-jewellery-set": "A matching rose-gold-tone set of necklace, bracelet and stud earrings. Fashion jewellery (plated metal). Keep dry for the longest shine.",
   "cherry-print-shoulder-bag": "Playful cherry print on a cream base with a slim shoulder strap. Sweet with denim, cute with a sundress.",
   "pink-ballet-flats": "Rounded-toe ballet flats with a dainty bow. Soft-touch upper and padded insole for all-day girly errands. SA sizing.",
   "satin-makeup-pouch": "A slouchy satin pouch for your everyday makeup essentials. Zip close, wipe-clean lining.",

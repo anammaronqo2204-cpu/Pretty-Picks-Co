@@ -8,7 +8,7 @@ const FAQ: [string, string][] = [
   ["How long does delivery take?", "Each product shows its own estimated arrival range, counted from when your payment is verified. Items from different suppliers may arrive separately."],
   ["Do you keep stock?", "Most items are sourced to order from our suppliers after payment is verified. Items marked “In stock locally” are held by us and ship sooner."],
   ["How do I pay?", "We currently accept EFT. After checkout you'll get our banking details and a unique reference, and you can upload your proof of payment. Your order is confirmed once funds reflect."],
-  ["Can you find a specific item for me?", "Yes! Use Request an Item. We'll research it and send a quote – nothing is confirmed until you accept and pay."],
+  ["Can you find a specific item for me?", "Yes! Use Request an Item. We'll research it and send a quote. Nothing is confirmed until you accept and pay."],
   ["What if my item arrives damaged or wrong?", "Contact us within 7 days of delivery with photos. Your rights under the Consumer Protection Act are not affected."],
   ["Are products branded or official?", "We only describe a product as branded or official if we have verified it. Many of our items are affordable, trend-inspired fashion pieces."],
 ];

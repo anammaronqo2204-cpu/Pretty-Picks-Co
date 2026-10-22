@@ -38,24 +38,24 @@ export function ProductForm({ p, collections }: { p: P | null; collections: { sl
             <div><L id="sizes">Sizes (comma separated)</L><input id="sizes" name="sizes" defaultValue={g<string[]>("sizes", []).join(", ")} className="input" placeholder="S, M, L" /></div>
             <div><L id="colours">Colours (comma separated)</L><input id="colours" name="colours" defaultValue={g<string[]>("colours", []).join(", ")} className="input" placeholder="Pink, Black" /></div>
           </div>
-          <div><L id="variants">Other variations – one per line: name|price adjustment|yes/no available</L><textarea id="variants" name="variants" rows={2} defaultValue={variants} className="input" placeholder="With gift box|30|yes" /></div>
-          <div><L id="specs">Specifications – one per line “Label: value”</L><textarea id="specs" name="specs" rows={3} defaultValue={specs} className="input" /></div>
+          <div><L id="variants">Other variations, one per line: name|price adjustment|yes/no available</L><textarea id="variants" name="variants" rows={2} defaultValue={variants} className="input" placeholder="With gift box|30|yes" /></div>
+          <div><L id="specs">Specifications, one per line “Label: value”</L><textarea id="specs" name="specs" rows={3} defaultValue={specs} className="input" /></div>
           <fieldset><legend className="label">Collections</legend><div className="flex flex-wrap gap-3">{collections.map((c) => <label key={c.slug} className="flex items-center gap-2 text-sm"><input type="checkbox" name="collections" value={c.slug} defaultChecked={sel.includes(c.slug)} className="accent-[#ff3d8b] w-4 h-4" />{c.name}</label>)}</div></fieldset>
         </section>
         <section className="card p-5 space-y-3">
           <h2 className="heading text-xl">Photos</h2>
-          <div><L id="images">Image URLs (one per line – first is main). Uploads are added automatically.</L><textarea id="images" name="images" rows={3} value={images} onChange={(e) => setImages(e.target.value)} className="input font-mono text-xs" /></div>
+          <div><L id="images">Image URLs (one per line, first is main). Uploads are added automatically.</L><textarea id="images" name="images" rows={3} value={images} onChange={(e) => setImages(e.target.value)} className="input font-mono text-xs" /></div>
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Upload product photo" className="input" onChange={async (e) => {
             const f = e.target.files?.[0]; if (!f) return; setUpl("Uploading…");
             const fd = new FormData(); fd.set("file", f); const r = await uploadImageAction(fd);
-            if (r.url) { setImages((im) => (im ? im + "\n" : "") + r.url); setUpl("Uploaded ✓ (remember to save)"); } else setUpl(r.error ?? "Failed");
+            if (r.url) { setImages((im) => (im ? im + "\n" : "") + r.url); setUpl("Uploaded (remember to save)"); } else setUpl(r.error ?? "Failed");
             e.target.value = "";
           }} />
           {upl && <p className="text-xs text-gold">{upl}</p>}
           <p className="text-xs text-cream/50">Compress photos (under ~300KB, ~1200px) for fast mobile loading. Only use images you have rights to.</p>
         </section>
         <section className="card p-5 space-y-3 border-gold/30">
-          <h2 className="heading text-xl">🔒 Private (never shown to customers)</h2>
+          <h2 className="heading text-xl">Private (never shown to customers)</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <div><L id="supplierName">Supplier name</L><input id="supplierName" name="supplierName" defaultValue={g("supplierName", "")} className="input" list="sups" /><datalist id="sups">{["SHEIN", "Temu", "Mr Price", "PEP", "Takealot"].map((s) => <option key={s} value={s} />)}</datalist></div>
             <div><L id="supplierUrl">Supplier product URL</L><input id="supplierUrl" name="supplierUrl" defaultValue={g("supplierUrl", "")} className="input" /></div>
@@ -67,12 +67,12 @@ export function ProductForm({ p, collections }: { p: P | null; collections: { sl
       <aside className="space-y-4">
         <section className="card p-5 space-y-3">
           <h2 className="heading text-xl">Pricing</h2>
-          <div><L id="supplierCost">Supplier cost (R) 🔒</L><input id="supplierCost" name="supplierCost" type="number" step="0.01" min="0" value={cost} onChange={(e) => setCost(Number(e.target.value))} className="input" /></div>
-          <div><L id="sourcingCost">Extra sourcing costs (R) 🔒 – shipping, fees</L><input id="sourcingCost" name="sourcingCost" type="number" step="0.01" min="0" value={src} onChange={(e) => setSrc(Number(e.target.value))} className="input" /></div>
-          <div><L id="markupPercent">Markup % 🔒</L><input id="markupPercent" name="markupPercent" type="number" step="1" min="0" value={markup} onChange={(e) => setMarkup(Number(e.target.value))} className="input" /></div>
+          <div><L id="supplierCost">Supplier cost (R)</L><input id="supplierCost" name="supplierCost" type="number" step="0.01" min="0" value={cost} onChange={(e) => setCost(Number(e.target.value))} className="input" /></div>
+          <div><L id="sourcingCost">Extra sourcing costs (R): shipping, fees</L><input id="sourcingCost" name="sourcingCost" type="number" step="0.01" min="0" value={src} onChange={(e) => setSrc(Number(e.target.value))} className="input" /></div>
+          <div><L id="markupPercent">Markup %</L><input id="markupPercent" name="markupPercent" type="number" step="1" min="0" value={markup} onChange={(e) => setMarkup(Number(e.target.value))} className="input" /></div>
           <p className="text-sm">Suggested price: <strong className="price">{zar(sugg)}</strong> <button type="button" className="text-xs underline text-moon" onClick={() => setPrice(String(sugg))}>use</button></p>
           <p className="text-xs text-cream/50">= ({zar(cost)} + {zar(src)}) × (1 + {markup}/100)</p>
-          <div><L id="price">Selling price (R) – leave blank to use suggested</L><input id="price" name="price" type="number" step="0.01" min="0" value={price} onChange={(e) => setPrice(e.target.value)} className="input" /></div>
+          <div><L id="price">Selling price (R): leave blank to use suggested</L><input id="price" name="price" type="number" step="0.01" min="0" value={price} onChange={(e) => setPrice(e.target.value)} className="input" /></div>
           <div><L id="compareAtPrice">Original price for sale display (optional)</L><input id="compareAtPrice" name="compareAtPrice" type="number" step="0.01" min="0" defaultValue={g("compareAtPrice", "") ?? ""} className="input" /></div>
           <p className={`text-sm ${profit < 0 ? "text-bright" : "text-gold"}`}>Margin per unit: {zar(profit.toFixed(2))} ({effPrice ? Math.round((profit / effPrice) * 100) : 0}%)</p>
         </section>

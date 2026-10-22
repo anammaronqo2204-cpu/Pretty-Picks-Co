@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  title: { default: "Pretty Picks Co. – Everything pretty, one place", template: "%s | Pretty Picks Co." },
+  title: { default: "Pretty Picks Co. | Everything pretty, one place", template: "%s | Pretty Picks Co." },
   description: "Curated for the Girlies. Feminine fashion, accessories, beauty and trending finds delivered across South Africa.",
 };
 export const viewport: Viewport = { themeColor: "#0d0710", width: "device-width", initialScale: 1 };

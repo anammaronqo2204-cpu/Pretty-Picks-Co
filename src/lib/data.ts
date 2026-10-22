@@ -112,7 +112,7 @@ export async function priceCart(lines: CartLine[], code?: string | null) {
     let adj = 0;
     if (p.variants.length && l.variant) {
       const v = p.variants.find((v) => v.name === l.variant);
-      if (!v || v.available === false) { errors.push(`${p.title} – option unavailable.`); continue; }
+      if (!v || v.available === false) { errors.push(`${p.title}. Option unavailable.`); continue; }
       adj = Number(v.priceAdjust ?? 0);
     }
     items.push({ productId: p.id, title: p.title, slug: p.slug, image: p.images[0] ?? "", size: l.size ?? null, colour: l.colour ?? null, variant: l.variant ?? null, quantity: qty, unitPrice: Number(p.price) + adj, unitCost: Number(p.supplierCost) + Number(p.sourcingCost), supplierName: p.supplierName, deliveryMin: p.deliveryMin, deliveryMax: p.deliveryMax });
@@ -125,7 +125,7 @@ export async function priceCart(lines: CartLine[], code?: string | null) {
     else if (subtotal < Number(dc.minSubtotal)) codeMessage = `This code needs a minimum spend of R${Number(dc.minSubtotal)}.`;
     else {
       discount = dc.type === "percent" ? Math.round(subtotal * Number(dc.value)) / 100 : Math.min(subtotal, Number(dc.value));
-      appliedCode = dc.code; codeMessage = "Code applied ✨";
+      appliedCode = dc.code; codeMessage = "Code applied";
     }
   }
   const s = await getSettings();

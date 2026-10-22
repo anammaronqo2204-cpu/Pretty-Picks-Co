@@ -41,8 +41,8 @@ export default async function Orders({ searchParams }: { searchParams: Promise<{
               <td className={td}><span className={`badge ${o.paymentStatus === "verified" ? "bg-gold/20 text-gold" : o.paymentStatus === "awaiting_verification" ? "bg-bright/30" : "bg-moon/15"}`}>{PAYMENT_STATUSES[o.paymentStatus]}</span></td>
               <td className={td}>{ORDER_STATUSES[o.status]}</td>
               <td className={td}>{zar(o.total)}</td>
-              <td className={td}>{sup}</td><td className={td}>{trk || "—"}</td>
-              <td className={td}>{its.length ? deliveryText(dmin, dmax) : "—"}</td>
+              <td className={td}>{sup}</td><td className={td}>{trk || "-"}</td>
+              <td className={td}>{its.length ? deliveryText(dmin, dmax) : "-"}</td>
               <td className={`${td} max-w-40 truncate text-cream/60`}>{o.internalNotes}</td>
             </tr>
           );

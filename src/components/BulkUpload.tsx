@@ -29,7 +29,7 @@ export function BulkUpload({ collections }: { collections: { slug: string; name:
     setReadErr(""); setErr(""); setResult(null); setRows([]); setZip(null);
     if (!f) return;
     if (!/\.zip$/i.test(f.name)) { setReadErr("Please choose a .zip file."); return; }
-    if (f.size > MAX_ZIP) { setReadErr(`That ZIP is ${(f.size / 1048576).toFixed(1)}MB. Max 25MB – compress your photos first.`); return; }
+    if (f.size > MAX_ZIP) { setReadErr(`That ZIP is ${(f.size / 1048576).toFixed(1)}MB. Max 25MB. Compress your photos first.`); return; }
     try {
       const entries = unzipSync(new Uint8Array(await f.arrayBuffer()), {
         filter: (e) => !e.name.endsWith("/") && !e.name.startsWith("__MACOSX/") && isImageName(e.name.split("/").pop() ?? ""),
@@ -128,7 +128,7 @@ export function BulkUpload({ collections }: { collections: { slug: string; name:
             <select id="supplier" name="supplier" value={supplier} className="input" onChange={(e) => { const s = e.target.value; setSupplier(s); const p = SUPPLIER_PRESETS.find((x) => x.name === s); if (p) setEta({ min: p.deliveryMin, max: p.deliveryMax }); }}>
               {SUPPLIER_PRESETS.map((s) => <option key={s.name}>{s.name}</option>)}
             </select>
-            <p className="text-[11px] text-cream/50 mt-1">Supplier is private – customers never see it.</p>
+            <p className="text-[11px] text-cream/50 mt-1">Supplier is private. Customers never see it.</p>
           </div>
           <div>
             <label className="label" htmlFor="category">Category</label>
@@ -140,7 +140,7 @@ export function BulkUpload({ collections }: { collections: { slug: string; name:
           </div>
           <div>
             <label className="label" htmlFor="status">Publish state</label>
-            <select id="status" name="status" className="input" defaultValue="draft"><option value="draft">Draft – finish descriptions first</option><option value="published">Publish immediately</option></select>
+            <select id="status" name="status" className="input" defaultValue="draft"><option value="draft">Draft: finish descriptions first</option><option value="published">Publish immediately</option></select>
           </div>
           <div>
             <label className="label" htmlFor="stockStatus">Stock status</label>
@@ -149,7 +149,7 @@ export function BulkUpload({ collections }: { collections: { slug: string; name:
           <fieldset className="sm:col-span-2"><legend className="label">Add to collections</legend>
             <div className="flex flex-wrap gap-3">{collections.map((c) => <label key={c.slug} className="flex items-center gap-2 text-sm"><input type="checkbox" name="collections" value={c.slug} className="w-4 h-4 accent-[#ff3d8b]" />{c.name}</label>)}</div>
           </fieldset>
-          <div className="sm:col-span-2"><label className="label" htmlFor="description">Shared description (optional – you can edit each product later)</label><textarea id="description" name="description" rows={2} maxLength={2000} className="input" placeholder="e.g. Sourced to order from our supplier. Please allow the stated delivery time." /></div>
+          <div className="sm:col-span-2"><label className="label" htmlFor="description">Shared description (optional, you can edit each product later)</label><textarea id="description" name="description" rows={2} maxLength={2000} className="input" placeholder="e.g. Sourced to order from our supplier. Please allow the stated delivery time." /></div>
           <label className="sm:col-span-2 flex items-center gap-2 text-sm"><input type="checkbox" name="skipExisting" value="1" defaultChecked className="w-4 h-4 accent-[#ff3d8b]" /> Skip photos whose product name already exists</label>
         </section>
 
@@ -164,11 +164,11 @@ export function BulkUpload({ collections }: { collections: { slug: string; name:
       {result && (
         <section className="card p-5 space-y-3 border-gold/40 fade-up" role="status">
           <h2 className="heading text-2xl text-gold">Imported {result.created.length} product{result.created.length === 1 ? "" : "s"}</h2>
-          <p className="text-sm text-cream/70">Supplier: {result.supplierName} · Estimated arrival: {result.deliveryMin}–{result.deliveryMax} days · Status: {rows.length ? "" : "as chosen"}</p>
+          <p className="text-sm text-cream/70">Supplier: {result.supplierName} · Estimated arrival: {result.deliveryMin} to {result.deliveryMax} days · Status: {rows.length ? "" : "as chosen"}</p>
           {result.created.length > 0 && <ul className="text-sm space-y-1 max-h-64 overflow-auto">{result.created.map((c) => <li key={c.id} className="flex justify-between gap-3"><Link href={`/admin/products/${c.id}`} className="underline text-moon">{c.title}</Link><span className="price">{zar(c.price)}</span></li>)}</ul>}
           {[...result.skipped, ...result.errors].length > 0 && (
             <details><summary className="cursor-pointer text-sm text-cream/70">{result.skipped.length + result.errors.length} skipped or needing attention</summary>
-              <ul className="text-xs mt-2 space-y-1 text-cream/70">{[...result.skipped, ...result.errors].map((s, i) => <li key={i}>{s.file} — {s.reason}</li>)}</ul>
+              <ul className="text-xs mt-2 space-y-1 text-cream/70">{[...result.skipped, ...result.errors].map((s, i) => <li key={i}>{s.file}: {s.reason}</li>)}</ul>
             </details>
           )}
           <div className="flex gap-2 pt-1"><Link href="/admin/products" className="btn btn-primary">Review products</Link><button type="button" className="btn btn-ghost" onClick={() => setResult(null)}>Import another ZIP</button></div>

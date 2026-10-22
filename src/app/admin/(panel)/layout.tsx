@@ -8,7 +8,7 @@ import { eq, sql } from "drizzle-orm";
 
 export const metadata = { title: "Admin", robots: { index: false } };
 
-const NAV = [["Dashboard", "/admin"], ["Orders", "/admin/orders"], ["Products", "/admin/products"], ["Bulk upload", "/admin/bulk-upload"], ["Requests", "/admin/requests"], ["Collections", "/admin/collections"], ["Inbox", "/admin/messages"], ["Policies", "/admin/policies"], ["Settings", "/admin/settings"], ["Go live 🚀", "/admin/deploy"]];
+const NAV = [["Dashboard", "/admin"], ["Orders", "/admin/orders"], ["Products", "/admin/products"], ["Bulk upload", "/admin/bulk-upload"], ["Requests", "/admin/requests"], ["Collections", "/admin/collections"], ["Inbox", "/admin/messages"], ["Policies", "/admin/policies"], ["Settings", "/admin/settings"], ["Go live ", "/admin/deploy"]];
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const a = await requireAdmin();
@@ -26,7 +26,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       </aside>
       <div className="p-4 sm:p-8 min-w-0">
         <AdminNavControls />
-        {ADMIN_UNLOCKED && <p role="alert" className="mb-4 rounded-xl border border-bright/60 bg-bright/15 p-3 text-sm">🔓 <strong>Preview mode – admin is unlocked.</strong> Anyone with the link can open this dashboard. Set <code>ADMIN_LOCKED=1</code> to require login before going live. Want a permanent shareable link? See <Link href="/admin/deploy" className="underline">Go live</Link>.</p>}
+        {ADMIN_UNLOCKED && <p role="alert" className="mb-4 rounded-xl border border-bright/60 bg-bright/15 p-3 text-sm"><strong>Preview mode. Admin is unlocked.</strong> Anyone with the link can open this dashboard. Set <code>ADMIN_LOCKED=1</code> to require login before going live. Want a permanent shareable link? See <Link href="/admin/deploy" className="underline">Go live</Link>.</p>}
         {children}
       </div>
     </div>

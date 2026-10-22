@@ -22,7 +22,7 @@ export default async function ProductPage({ params, searchParams }: { params: Pr
   const stockColour = p.stockStatus === "local" ? "bg-gold text-night" : p.stockStatus === "unavailable" ? "bg-black/60" : p.stockStatus === "low" ? "bg-bright/80" : "bg-moon/20 text-moon";
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      {isPreview && <p className="card p-3 mb-4 text-gold text-sm">Admin preview – this product may not be published.</p>}
+      {isPreview && <p className="card p-3 mb-4 text-gold text-sm">Admin preview: this product may not be published.</p>}
       <nav aria-label="Breadcrumb" className="text-sm text-cream/60 mb-4"><Link href="/shop" className="hover:text-bright">Shop</Link> / <Link href={`/shop?category=${encodeURIComponent(p.category)}`} className="hover:text-bright">{p.category}</Link></nav>
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
         <Gallery images={p.images.length ? p.images : [""]} title={p.title} />
@@ -53,7 +53,7 @@ export default async function ProductPage({ params, searchParams }: { params: Pr
             <ul className="mt-2 text-sm text-cream/80 list-disc pl-5 space-y-1">
               <li>Flat delivery fee of {zar(s.shippingFee)} within South Africa; free over {zar(s.freeShippingOver)}.</li>
               <li>Pay by EFT. We order from the supplier only after funds are verified.</li>
-              <li>Report damaged, defective or incorrect items within 7 days – see our <Link className="underline" href="/policies/returns">returns policy</Link>.</li>
+              <li>Report damaged, defective or incorrect items within 7 days. See our <Link className="underline" href="/policies/returns">returns policy</Link>.</li>
             </ul>
           </div>
         </div>

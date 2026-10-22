@@ -75,7 +75,7 @@ export function StoreBackButton() {
   const label = prev.url.startsWith("/shop") ? "Back to shop" : prev.url.startsWith("/product/") ? "Back to product" : prev.url === "/" ? "Back to home" : "Back";
   return (
     <div className="mx-auto max-w-6xl px-4 pt-4">
-      <button type="button" onClick={goBack} className="btn btn-ghost !min-h-10 !py-1.5 text-sm" aria-label={`${label} – returns to where you were`}>
+      <button type="button" onClick={goBack} className="btn btn-ghost !min-h-10 !py-1.5 text-sm" aria-label={`${label}, returns to where you were`}>
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
         {label}
       </button>

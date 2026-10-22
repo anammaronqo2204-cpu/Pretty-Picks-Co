@@ -30,7 +30,7 @@ export const payfastProvider: PaymentProvider = {
   label: "PayFast (requires configuration)",
   enabled: () => !!process.env.PAYFAST_MERCHANT_ID && process.env.PAYFAST_ENABLED === "1",
   async initiate() {
-    throw new Error("PayFast not yet integrated – see README");
+    throw new Error("PayFast not yet integrated. See README");
   },
 };
 

@@ -13,7 +13,7 @@ export default async function Policies({ searchParams }: { searchParams: Promise
   return (
     <div className="space-y-4">
       <h1 className="heading text-3xl">Policies</h1>
-      <p className="text-sm text-cream/60">Draft policies – review with a legal adviser before launch. Formatting: <code>## Heading</code>, <code>- bullet</code>, <code>1. step</code>, <code>**bold**</code>, <code>_italic_</code>. Blank line between blocks.</p>
+      <p className="text-sm text-cream/60">Draft policies. Review with a legal adviser before launch. Formatting: <code>## Heading</code>, <code>- bullet</code>, <code>1. step</code>, <code>**bold**</code>, <code>_italic_</code>. Blank line between blocks.</p>
       <Flash sp={sp} />
       <div className="flex flex-wrap gap-2">{all.map((p) => <Link key={p.slug} href={`/admin/policies?edit=${p.slug}`} className={`badge !py-2 ${cur?.slug === p.slug ? "bg-bright" : "bg-moon/15"}`}>{p.title}</Link>)}<Link href="/admin/policies?edit=__new" className="badge !py-2 bg-gold/20 text-gold">+ New</Link></div>
       <form action={savePolicyAction} key={cur?.slug ?? "new"} className="card p-5 space-y-3">

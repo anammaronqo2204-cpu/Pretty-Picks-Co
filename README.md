@@ -1,4 +1,4 @@
-# Pretty Picks Co. 💗
+# Pretty Picks Co. 
 *Everything pretty, one place. Curated for the Girlies.*
 
 A full e-commerce store for South Africa (ZAR): storefront, cart, checkout with EFT and proof-of-payment upload, order tracking, Request an Item, editable policies, Meta Pixel, and a private admin dashboard.
@@ -47,7 +47,7 @@ No admin credentials are hard-coded.
 Go to **Admin → Products → New product**.
 - **Private fields** (supplier, supplier URL, cost, sourcing costs, markup, internal notes) are never shown to customers.
 - **Suggested price** = (supplier cost + sourcing costs) × (1 + markup/100). Leave the selling price blank to use the suggestion, or type your own.
-- Set delivery min/max days for each product. This becomes "Estimated arrival: X–Y days".
+- Set delivery min/max days for each product. This becomes "Estimated arrival: X to Y days".
 - Stock status: *Sourced to order*, *In stock locally* (only if you physically hold the item), *Limited*, or *Unavailable* (blocks ordering).
 - Draft → Published → Archived. Scheduled publishing is supported. **Preview** shows drafts to admins only.
 - Upload photos (≤5MB). Compress them to about 300KB first for mobile data.
@@ -65,16 +65,16 @@ R179 Heart Necklace.webp         →  "Heart Necklace" R179
 
 1. Choose the ZIP. Every image is read in the browser and listed with its detected name and price.
 2. Fix any name or price inline, untick anything you don't want. Rows where no price was found are flagged.
-3. Pick the supplier once (SHEIN is preselected and sets ETA to 10–18 days; Temu 12–21, Mr Price 5–9, PEP 3–6). Edit the ETA if your supplier differs. Add a category, collections, an optional shared description, and choose **Draft** (default) or **Publish**.
+3. Pick the supplier once (SHEIN is preselected and sets ETA to 10 to 18 days; Temu 12 to 21, Mr Price 5 to 9, PEP 3 to 6). Edit the ETA if your supplier differs. Add a category, collections, an optional shared description, and choose **Draft** (default) or **Publish**.
 4. Import. Each photo becomes a product with that supplier, ETA, price and photo. Duplicate names are skipped if the box is ticked.
 
-Limits: 100 images, 5MB per image, 25MB per ZIP. Photos are stored in the database, so compress them (~300KB) to keep your Supabase storage small. Supplier cost and markup are left at 0/"not set" — set them per product if you want accurate profit figures. Prices come from the filename, so double-check a few before publishing.
+Limits: 100 images, 5MB per image, 25MB per ZIP. Photos are stored in the database, so compress them (~300KB) to keep your Supabase storage small. Supplier cost and markup are left at 0/"not set". Set them per product if you want accurate profit figures. Prices come from the filename, so double-check a few before publishing.
 
 ## 7. EFT payment verification
 1. The customer checks out and gets a unique reference (`PP-XXXXXX`) and a private order link.
 2. Banking details appear **only** after you enter them and tick "verified" in **Admin → Settings**.
 3. The customer uploads proof (PDF/JPG/PNG/WebP, ≤5MB, file type checked). Proofs are stored privately and only admins can view them. Duplicate files are rejected.
-4. The order shows **Proof Received – Verifying**. Check your bank account. To approve, you must tick "funds have cleared". A screenshot alone never marks an order paid.
+4. The order shows **Proof Received: Verifying**. Check your bank account. To approve, you must tick "funds have cleared". A screenshot alone never marks an order paid.
 5. Approval records the payment as verified, writes an audit-trail entry and unlocks supplier ordering. Supplier steps are blocked until payment is verified.
 6. Track each item separately (supplier order #, tracking #, the 8-step workflow). Refunds and cancellations are recorded on the order.
 
@@ -84,7 +84,7 @@ Set the number in **Admin → Settings** (or `NEXT_PUBLIC_WHATSAPP_NUMBER`), in 
 ## 9. Meta Pixel
 Set `NEXT_PUBLIC_META_PIXEL_ID`. The pixel loads only after the visitor accepts the cookie banner. Events: PageView (on every client-side route change), ViewContent, AddToCart, InitiateCheckout, Contact (WhatsApp clicks), and Purchase. Purchase fires once per order, on the customer's order page, only after you verify payment, using the confirmed ZAR total. No personal data is sent. All logic lives in `src/lib/pixel.ts`.
 
-> 📄 **Want a permanent, shareable link?** See **[DEPLOY.md](./DEPLOY.md)** – a beginner-friendly, step-by-step guide (Supabase + GitHub + Netlify/Vercel, all free).
+> **Want a permanent, shareable link?** See **[DEPLOY.md](./DEPLOY.md)**. A beginner-friendly, step-by-step guide (Supabase + GitHub + Netlify/Vercel, all free).
 
 ## 10. Deploy to Netlify
 1. Push to GitHub, then in Netlify choose **Add new site → Import**.

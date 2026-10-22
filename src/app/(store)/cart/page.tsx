@@ -20,8 +20,8 @@ export default function CartPage() {
       <h1 className="heading text-4xl mb-6">Your bag</h1>
       <div className="grid lg:grid-cols-[1fr_340px] gap-6">
         <div className="space-y-3">
-          <p className="card p-4 text-sm border-gold/40">📦 Your items may arrive separately because products can come from different suppliers. Please check the estimated delivery time displayed on each product.</p>
-          {quote?.mixedDelivery && <p role="alert" className="card p-4 text-sm border-bright/60 text-cream">⚠️ The items in your bag have <strong>different estimated delivery times</strong>, so they will likely arrive on different dates.</p>}
+          <p className="card p-4 text-sm border-gold/40">Your items may arrive separately because products can come from different suppliers. Please check the estimated delivery time displayed on each product.</p>
+          {quote?.mixedDelivery && <p role="alert" className="card p-4 text-sm border-bright/60 text-cream">The items in your bag have <strong>different estimated delivery times</strong>, so they will likely arrive on different dates.</p>}
           {items.map((i) => {
             const opt = quote?.options[i.productId];
             return (
@@ -30,7 +30,7 @@ export default function CartPage() {
                 <div className="flex-1 min-w-0 space-y-2">
                   <div className="flex justify-between gap-2"><Link href={`/product/${i.slug}`} className="font-medium hover:text-bright">{i.title}</Link><span className="price">{zar(i.price * i.quantity)}</span></div>
                   <p className="text-xs text-moon">Est. arrival: {deliveryText(i.deliveryMin, i.deliveryMax)}</p>
-                  {opt && !opt.available && <p className="text-xs text-bright">No longer available – please remove.</p>}
+                  {opt && !opt.available && <p className="text-xs text-bright">No longer available. Please remove.</p>}
                   <div className="flex flex-wrap gap-2 items-center">
                     {opt && opt.sizes.length > 0 && <select aria-label={`Size for ${i.title}`} className="input !min-h-10 !w-auto !py-1" value={i.size ?? ""} onChange={(e) => update(i.key, { size: e.target.value || null })}><option value="">Size</option>{opt.sizes.map((s) => <option key={s}>{s}</option>)}</select>}
                     {opt && opt.colours.length > 0 && <select aria-label={`Colour for ${i.title}`} className="input !min-h-10 !w-auto !py-1" value={i.colour ?? ""} onChange={(e) => update(i.key, { colour: e.target.value || null })}><option value="">Colour</option>{opt.colours.map((s) => <option key={s}>{s}</option>)}</select>}

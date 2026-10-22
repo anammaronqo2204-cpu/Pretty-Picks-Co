@@ -21,13 +21,13 @@ type Override = { title?: string; price?: number; include?: boolean };
 export async function POST(req: Request) {
   // Server-side authorisation: admins only
   if (!(await getAdmin())) return NextResponse.json({ error: "Not authorised" }, { status: 401 });
-  if (!(await rateLimit("bulk-import", 10, 10 * 60_000))) return NextResponse.json({ error: "Too many imports – wait a few minutes." }, { status: 429 });
+  if (!(await rateLimit("bulk-import", 10, 10 * 60_000))) return NextResponse.json({ error: "Too many imports. Wait a few minutes." }, { status: 429 });
 
   const fd = await req.formData().catch(() => null);
   if (!fd) return NextResponse.json({ error: "Invalid upload" }, { status: 400 });
   const zip = fd.get("zip");
   if (!(zip instanceof File) || zip.size === 0) return NextResponse.json({ error: "Choose a ZIP file." }, { status: 400 });
-  if (zip.size > MAX_ZIP) return NextResponse.json({ error: `ZIP is too large (${(zip.size / 1048576).toFixed(1)}MB). Max 25MB – compress your photos first.` }, { status: 400 });
+  if (zip.size > MAX_ZIP) return NextResponse.json({ error: `ZIP is too large (${(zip.size / 1048576).toFixed(1)}MB). Max 25MB. Compress your photos first.` }, { status: 400 });
 
   let overrides: Record<string, Override> = {};
   try { overrides = JSON.parse(String(fd.get("overrides") ?? "{}")); } catch { overrides = {}; }
@@ -117,7 +117,7 @@ export async function POST(req: Request) {
           sizes: [], colours: [], variants: [],
           stockStatus: stockStatus in STOCK_STATUSES ? stockStatus : "supplier",
           status, featured: false, isDemo: false,
-          internalNotes: `Bulk ZIP import ${new Date().toISOString().slice(0, 10)} – original file: ${name}. Supplier cost & markup not set yet.`,
+          internalNotes: `Bulk ZIP import ${new Date().toISOString().slice(0, 10)}. Original file: ${name}. Supplier cost & markup not set yet.`,
         }).returning({ id: products.id, title: products.title, price: products.price, slug: products.slug });
         return p;
       });

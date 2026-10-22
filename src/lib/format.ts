@@ -3,7 +3,7 @@ export function zar(n: number | string | null | undefined) {
   return "R" + v.toLocaleString("en-ZA", { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }).replace(/\u00a0/g, " ");
 }
 export function deliveryText(min: number, max: number) {
-  return min === max ? `${min} days` : `${min}–${max} days`;
+  return min === max ? `${min} days` : `${min} to ${max} days`;
 }
 export function slugify(s: string) {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80);

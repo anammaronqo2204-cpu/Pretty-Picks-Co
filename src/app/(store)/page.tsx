@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Hero, BlossomTree, Petals, Reveal } from "@/components/Decor";
+import { Hero, BlossomBackdrop, Reveal } from "@/components/Decor";
 import { ProductCard } from "@/components/ProductCard";
 import { NewsletterForm } from "@/components/Forms";
 import { ProductImage } from "@/components/ProductImage";
@@ -11,7 +11,7 @@ function Section({ title, sub, href, items }: { title: string; sub?: string; hre
     <section className="mx-auto max-w-6xl px-4 mt-20">
       <Reveal className="flex items-end justify-between gap-4 mb-6">
         <div><h2 className="heading text-3xl sm:text-4xl">{title}</h2>{sub && <p className="text-cream/70 mt-1">{sub}</p>}</div>
-        <Link href={href} className="text-sm text-moon hover:text-bright whitespace-nowrap">View all →</Link>
+        <Link href={href} className="text-sm text-moon hover:text-bright whitespace-nowrap">View all</Link>
       </Reveal>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">{items.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}</div>
     </section>
@@ -32,8 +32,8 @@ export default async function Home() {
 
       <section className="mx-auto max-w-6xl px-4 -mt-6 relative z-10">
         <Reveal className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {[["🔒", "Secure payment options", "EFT to our business account, verified by hand"], ["🗓️", "Clear delivery estimates", "Every product shows its own arrival range"], ["✨", "Carefully curated finds", "Hand-picked, not an endless marketplace"], ["💌", "Personal sourcing service", "Ask us to find that item you saw online"]].map(([i, t, d]) => (
-            <div key={t} className="card p-4 text-center"><div className="text-2xl" aria-hidden>{i}</div><p className="text-sm font-medium mt-1">{t}</p><p className="text-xs text-cream/60 mt-1">{d}</p></div>
+          {[["Secure payment options", "EFT to our business account, verified by hand"], ["Clear delivery estimates", "Every product shows its own arrival range"], ["Hand-picked", "A small selection instead of an endless catalogue"], ["Personal sourcing", "Ask us to find an item you saw online"]].map(([t, d]) => (
+            <div key={t} className="card p-4 text-center"><p className="text-sm font-medium">{t}</p><p className="text-xs text-cream/60 mt-1">{d}</p></div>
           ))}
         </Reveal>
       </section>
@@ -55,14 +55,13 @@ export default async function Home() {
       <Section title="Trending now" sub="What the girlies are loving" href="/shop?collection=trending-now" items={trending} />
       <Section title={sales ? "Bestsellers" : "Our featured favourites"} sub={sales ? "Most-ordered pieces" : "Bestsellers will appear here once we have real sales data"} href={sales ? "/shop?sort=popular" : "/shop?featured=1"} items={best} />
 
-      <section className="relative mt-24 overflow-hidden">
-        <Petals count={12} />
-        <BlossomTree className="absolute -right-10 bottom-0 w-64 sm:w-96 opacity-70" flip />
+      <section className="relative mt-24 overflow-hidden bg-night">
+        <BlossomBackdrop />
         <div className="relative mx-auto max-w-6xl px-4 py-16">
           <Reveal className="card p-8 sm:p-12 max-w-2xl" >
             <p className="smallcaps text-gold text-sm">Personal sourcing</p>
             <h2 className="heading text-3xl sm:text-5xl mt-2">Saw it online? <span className="text-bright">We&apos;ll find it.</span></h2>
-            <p className="mt-4 text-cream/80">Send us a screenshot or link of that viral item. We&apos;ll research suppliers, check the real cost and send you a quote in Rand – no obligation until you say yes.</p>
+            <p className="mt-4 text-cream/80">Send us a screenshot or link of that viral item. We&apos;ll research suppliers, check the real cost and send you a quote in Rand. No obligation until you say yes.</p>
             <ol className="mt-5 space-y-2 text-sm text-cream/80 list-decimal pl-5"><li>Tell us what you want and your budget</li><li>We research and send a quote</li><li>You pay, we order, it&apos;s on its way</li></ol>
             <Link href="/request" className="btn btn-primary mt-6">Request an Item</Link>
           </Reveal>
@@ -72,8 +71,8 @@ export default async function Home() {
       <section className="mx-auto max-w-6xl px-4 mt-20">
         <Reveal><h2 className="heading text-3xl sm:text-4xl text-center">Girlie love</h2><p className="text-center text-xs text-gold mt-2 uppercase tracking-widest">Sample reviews · demonstration content, not real customers</p></Reveal>
         <div className="grid sm:grid-cols-3 gap-4 mt-8">
-          {[["Sample review", "Obsessed with the bow bag – the delivery estimate was clear from the start so I knew exactly when to expect it."], ["Sample review", "Requested a top I saw on TikTok and got a quote on WhatsApp. Such a cute service!"], ["Sample review", "Love that everything is in Rand and the site tells you which items might arrive separately."]].map(([n, t], i) => (
-            <Reveal key={i} delay={i * 100} className="card p-6"><p className="text-gold" aria-label="5 stars">★★★★★</p><p className="mt-3 text-cream/90 italic">&ldquo;{t}&rdquo;</p><p className="mt-3 text-xs text-cream/50">— {n} (demo)</p></Reveal>
+          {[["Sample review", "Obsessed with the bow bag. The delivery estimate was clear from the start so I knew exactly when to expect it."], ["Sample review", "Requested a top I saw on TikTok and got a quote on WhatsApp. Such a cute service!"], ["Sample review", "Love that everything is in Rand and the site tells you which items might arrive separately."]].map(([n, t], i) => (
+            <Reveal key={i} delay={i * 100} className="card p-6"><p className="text-gold" aria-label="5 stars">★★★★★</p><p className="mt-3 text-cream/90 italic">&ldquo;{t}&rdquo;</p><p className="mt-3 text-xs text-cream/50">{n} (demo)</p></Reveal>
           ))}
         </div>
       </section>

@@ -15,7 +15,7 @@ export const ORDER_STATUSES: Record<string, string> = {
 
 export const PAYMENT_STATUSES: Record<string, string> = {
   awaiting_proof: "Awaiting Proof of Payment",
-  awaiting_verification: "Proof Received – Verifying",
+  awaiting_verification: "Proof Received: Verifying",
   verified: "Payment Verified",
   rejected: "Proof Rejected",
   refund_processing: "Refund Processing",

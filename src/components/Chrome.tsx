@@ -21,7 +21,7 @@ export function Header() {
         <button className="lg:hidden w-11 h-11 grid place-items-center" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(!open)}>
           <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d={open ? "M5 5l14 14M19 5L5 19" : "M3 6h18M3 12h18M3 18h18"} /></svg>
         </button>
-        <Link href="/" className="font-script text-3xl sm:text-4xl text-cream whitespace-nowrap" style={{ textShadow: "0 0 18px rgba(255,61,139,.5)" }}>Pretty Picks <span className="text-moon">Co.</span></Link>
+        <Link href="/" className="font-script text-3xl sm:text-4xl text-cream whitespace-nowrap">Pretty Picks <span className="text-moon">Co.</span></Link>
         <nav aria-label="Main" className="hidden lg:flex gap-6 ml-8 text-sm">
           {NAV.map(([l, h]) => <Link key={h} href={h} className={`hover:text-bright transition ${path === h ? "text-bright" : ""}`}>{l}</Link>)}
         </nav>
@@ -58,8 +58,8 @@ export function WhatsAppFloat({ number }: { number: string }) {
   const path = usePathname();
   if (path.startsWith("/checkout")) return null;
   return (
-    <a href={`https://wa.me/${number}?text=${encodeURIComponent("Hi Pretty Picks Co.! 💗")}`} target="_blank" rel="noopener noreferrer" onClick={() => pixel.contact()} aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-[#25D366] grid place-items-center shadow-[0_0_24px_rgba(37,211,102,.45)] hover:scale-105 transition">
+    <a href={`https://wa.me/${number}?text=${encodeURIComponent("Hi Pretty Picks Co.!")}`} target="_blank" rel="noopener noreferrer" onClick={() => pixel.contact()} aria-label="Chat with us on WhatsApp"
+      className="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-[#25D366] grid place-items-center shadow-lg hover:scale-105 transition">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z" /></svg>
     </a>
   );

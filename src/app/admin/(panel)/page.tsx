@@ -58,7 +58,7 @@ export default async function Dashboard() {
       <div className="card p-4 text-xs text-cream/70 space-y-1">
         <p><strong>Revenue</strong> = all money received for verified orders ({zar(totals.revenue.toFixed(2))}), including delivery fees ({zar(totals.shipping.toFixed(2))}).</p>
         <p><strong>Gross profit</strong> = product revenue after discounts ({zar(productRevenue.toFixed(2))}) − product cost & attributable sourcing ({zar(items.cost.toFixed(2))}) − transaction fees ({zar(totals.fees.toFixed(2))}) − refunds ({zar(totals.refunds.toFixed(2))}). Delivery fees and your courier costs are excluded.</p>
-        <p><strong>Net profit</strong> is not calculated here – it also requires your operating expenses (courier costs, ads, packaging, data, tax), which aren&apos;t recorded in this system.</p>
+        <p><strong>Net profit</strong> is not calculated here. It also requires your operating expenses (courier costs, ads, packaging, data, tax), which aren&apos;t recorded in this system.</p>
       </div>
       <div className="grid lg:grid-cols-2 gap-6">
         <section className="card p-5"><h2 className="heading text-xl mb-3">Sales by month (revenue)</h2>

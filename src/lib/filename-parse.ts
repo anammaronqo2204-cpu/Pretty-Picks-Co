@@ -71,6 +71,6 @@ export function parseProductFilename(filePath: string): ParsedFilename {
     title,
     price,
     slugBase,
-    warning: price === null ? "No price found in the filename – add one before importing." : undefined,
+    warning: price === null ? "No price found in the filename. Add one before importing." : undefined,
   };
 }

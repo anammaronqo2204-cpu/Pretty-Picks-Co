@@ -20,10 +20,10 @@ export default async function Requests({ searchParams }: { searchParams: Promise
             <td className={td}><Link href={`/admin/requests/${r.id}`} className="text-gold hover:underline">{r.reference}</Link></td>
             <td className={td}>{r.createdAt.toLocaleDateString("en-ZA")}</td>
             <td className={`${td} max-w-xs`}>{r.description.slice(0, 90)}</td>
-            <td className={td}>{r.budget ? zar(r.budget) : "—"}</td>
+            <td className={td}>{r.budget ? zar(r.budget) : "-"}</td>
             <td className={td}>{r.email}<br /><span className="text-xs text-cream/50">{r.whatsapp}</span></td>
             <td className={td}>{REQUEST_STATUSES[r.status]}</td>
-            <td className={td}>{r.quotePrice ? zar(r.quotePrice) : "—"}</td>
+            <td className={td}>{r.quotePrice ? zar(r.quotePrice) : "-"}</td>
           </tr>
         ))}</tbody></table>{rows.length === 0 && <p className="p-6 text-center text-cream/60">No requests.</p>}</div>
     </div>

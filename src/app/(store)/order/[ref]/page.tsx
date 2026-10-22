@@ -31,7 +31,7 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
         {isNew && <p className="font-script text-5xl sm:text-6xl text-moon">Thank you, {o.customerName.split(" ")[0]}!</p>}
         <h1 className="heading text-3xl mt-2">Order <span className="text-gold">{o.reference}</span></h1>
         <p className="mt-2">Status: <strong className="text-bright">{ORDER_STATUSES[o.status]}</strong> · Payment: {PAYMENT_STATUSES[o.paymentStatus]}</p>
-        <p className="text-sm text-cream/60 mt-1">Bookmark this page – it&apos;s your private link to this order. You can also <Link href="/track" className="underline">track it</Link> with your order number and email.</p>
+        <p className="text-sm text-cream/60 mt-1">Bookmark this page. It&apos;s your private link to this order. You can also <Link href="/track" className="underline">track it</Link> with your order number and email.</p>
       </div>
 
       {o.paymentMethod === "eft" && o.paymentStatus !== "verified" && o.status !== "cancelled" && (
@@ -49,14 +49,14 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
             </dl>
           ) : <p className="mt-4 p-3 rounded-xl bg-bright/10 text-sm">Our banking details are being finalised. Please contact us on <a className="underline" href={`https://wa.me/${s.whatsapp}?text=${encodeURIComponent("Hi! Banking details for order " + o.reference + " please")}`}>WhatsApp</a> before paying.</p>}
           <ul className="mt-4 text-sm text-cream/75 list-disc pl-5 space-y-1">
-            <li>Uploading proof of payment helps us match your payment, but your order is only confirmed once the funds reflect in our account (usually 1–3 business days between banks).</li>
+            <li>Uploading proof of payment helps us match your payment, but your order is only confirmed once the funds reflect in our account (usually 1 to 3 business days between banks).</li>
             <li>We place your order with our suppliers only after payment is verified. Delivery estimates count from that point.</li>
           </ul>
           {canUpload && <div className="mt-5"><ProofUpload reference={o.reference} token={o.accessToken} /></div>}
-          {proofs.length > 0 && <ul className="mt-4 text-xs text-cream/70 space-y-1">{proofs.map((p, k) => <li key={k}>📎 {p.fileName} – {p.status === "pending" ? "awaiting review" : p.status}{p.note && p.status === "rejected" ? ` (${p.note})` : ""}</li>)}</ul>}
+          {proofs.length > 0 && <ul className="mt-4 text-xs text-cream/70 space-y-1">{proofs.map((p, k) => <li key={k}>{p.fileName}, {p.status === "pending" ? "awaiting review" : p.status}{p.note && p.status === "rejected" ? ` (${p.note})` : ""}</li>)}</ul>}
         </section>
       )}
-      {o.paymentStatus === "verified" && <p className="card p-4 text-center text-gold">💗 Payment verified – thank you! We&apos;re ordering your items from our suppliers.</p>}
+      {o.paymentStatus === "verified" && <p className="card p-4 text-center text-gold">Payment verified. Thank you! We&apos;re ordering your items from our suppliers.</p>}
 
       <section className="card p-6">
         <h2 className="heading text-2xl mb-3">Order summary</h2>

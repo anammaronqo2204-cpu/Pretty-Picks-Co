@@ -15,7 +15,7 @@ export default async function RequestDetail({ params, searchParams }: { params: 
   const sugg = suggestedPrice(Number(r.supplierCost), Number(r.sourcingCost), Number(r.markupPercent));
   const quote = r.quotePrice ? Number(r.quotePrice) : sugg;
   const wa = r.whatsapp.replace(/\D/g, "").replace(/^0/, "27");
-  const msg = r.quoteMessage || `Hi! 💗 Thanks for your Pretty Picks Co. request ${r.reference}. We found it! Your quote is ${zar(quote)} incl. sourcing (excl. delivery), estimated arrival X–Y days after payment. This quote is valid for 3 days. Reply YES to go ahead.`;
+  const msg = r.quoteMessage || `Hi! Thanks for your Pretty Picks Co. request ${r.reference}. We found it! Your quote is ${zar(quote)} incl. sourcing (excl. delivery), estimated arrival X–Y days after payment. This quote is valid for 3 days. Reply YES to go ahead.`;
   return (
     <div className="space-y-6">
       <div><Link href="/admin/requests" className="text-sm text-moon">← Requests</Link><h1 className="heading text-3xl mt-1">Request <span className="text-gold">{r.reference}</span></h1><p className="text-sm text-cream/60">{r.createdAt.toLocaleString("en-ZA")} · {REQUEST_STATUSES[r.status]}</p></div>
@@ -24,19 +24,19 @@ export default async function RequestDetail({ params, searchParams }: { params: 
         <section className="card p-5 space-y-2 text-sm">
           <h2 className="heading text-xl">Customer request</h2>
           <p className="whitespace-pre-line">{r.description}</p>
-          <p>Colour: {r.colour || "—"} · Size: {r.size || "—"} · Budget: {r.budget ? zar(r.budget) : "—"}</p>
+          <p>Colour: {r.colour || "-"} · Size: {r.size || "-"} · Budget: {r.budget ? zar(r.budget) : "-"}</p>
           {r.imageUrl && <p>Reference link: <a href={r.imageUrl} target="_blank" rel="noopener noreferrer nofollow" className="underline text-moon break-all">{r.imageUrl}</a></p>}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {r.imageMediaId && <a href={`/api/media/${r.imageMediaId}`} target="_blank"><img src={`/api/media/${r.imageMediaId}`} alt="Customer reference" className="max-h-60 rounded-xl" /></a>}
           {r.notes && <p className="text-cream/70">Notes: {r.notes}</p>}
-          <p className="pt-2">📧 <a className="underline" href={`mailto:${r.email}?subject=${encodeURIComponent("Your Pretty Picks Co. request " + r.reference)}&body=${encodeURIComponent(msg)}`}>{r.email}</a></p>
-          <p>💬 <a className="underline text-[#25D366]" target="_blank" rel="noopener noreferrer" href={`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`}>{r.whatsapp} – send quote via WhatsApp</a></p>
+          <p className="pt-2"><a className="underline" href={`mailto:${r.email}?subject=${encodeURIComponent("Your Pretty Picks Co. request " + r.reference)}&body=${encodeURIComponent(msg)}`}>{r.email}</a></p>
+          <p><a className="underline text-[#25D366]" target="_blank" rel="noopener noreferrer" href={`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`}>{r.whatsapp}. Send quote via WhatsApp</a></p>
           <h3 className="heading text-lg pt-3">Communication log</h3>
-          <ol className="space-y-1">{r.log.map((l, i) => <li key={i} className="text-xs border-l-2 border-moon/30 pl-2"><span className="text-cream/50">{new Date(l.at).toLocaleString("en-ZA")}</span> – {l.text}</li>)}</ol>
+          <ol className="space-y-1">{r.log.map((l, i) => <li key={i} className="text-xs border-l-2 border-moon/30 pl-2"><span className="text-cream/50">{new Date(l.at).toLocaleString("en-ZA")}</span>, {l.text}</li>)}</ol>
         </section>
         <form action={updateRequestAction} className="card p-5 space-y-3">
           <input type="hidden" name="id" value={r.id} />
-          <h2 className="heading text-xl">Research & quote 🔒</h2>
+          <h2 className="heading text-xl">Research & quote </h2>
           <div><label className="label" htmlFor="status">Status</label><select id="status" name="status" defaultValue={r.status} className="input">{Object.entries(REQUEST_STATUSES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="label" htmlFor="supplierName">Supplier</label><input id="supplierName" name="supplierName" defaultValue={r.supplierName} className="input" /></div>

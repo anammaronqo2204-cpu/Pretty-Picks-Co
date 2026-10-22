@@ -6,14 +6,14 @@ import { zar } from "@/lib/format";
 async function post(url: string, body: unknown | FormData) {
   const res = await fetch(url, body instanceof FormData ? { method: "POST", body } : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || "Something went wrong – please try again.");
+  if (!res.ok) throw new Error(data.error || "Something went wrong. Please try again.");
   return data;
 }
 const Honeypot = () => <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />;
 
 export function NewsletterForm({ compact = false }: { compact?: boolean }) {
   const [state, setState] = useState<"idle" | "busy" | "ok" | string>("idle");
-  return state === "ok" ? <p className="text-moon text-sm" role="status">You&apos;re on the list, gorgeous 💌</p> : (
+  return state === "ok" ? <p className="text-moon text-sm" role="status">You&apos;re on the list.</p> : (
     <form className={`flex gap-2 ${compact ? "" : "max-w-md mx-auto"}`} onSubmit={async (e) => {
       e.preventDefault(); const fd = new FormData(e.currentTarget); setState("busy");
       try { await post("/api/newsletter", Object.fromEntries(fd)); setState("ok"); } catch (err) { setState((err as Error).message); }
@@ -29,7 +29,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
 
 export function ContactForm() {
   const [state, setState] = useState<"idle" | "busy" | "ok" | string>("idle");
-  if (state === "ok") return <div className="card p-6" role="status"><p className="heading text-2xl text-moon">Message sent 💗</p><p className="mt-2">We usually reply within 1–2 business days.</p></div>;
+  if (state === "ok") return <div className="card p-6" role="status"><p className="heading text-2xl text-moon">Message sent</p><p className="mt-2">We usually reply within 1 to 2 business days.</p></div>;
   return (
     <form className="card p-6 space-y-4" onSubmit={async (e) => {
       e.preventDefault(); setState("busy");

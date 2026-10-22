@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       unitPrice: String(i.unitPrice), unitCost: String(i.unitCost), supplierName: i.supplierName, deliveryMin: i.deliveryMin, deliveryMax: i.deliveryMax,
     })));
     await tx.insert(paymentEvents).values({ orderId: o.id, actor: "customer", event: "order_created", detail: `Total R${q.total} via ${provider!.id}` });
-    await tx.insert(messages).values({ kind: "notification", name: f.customerName, email: f.email, body: `New order ${reference} – R${q.total}` });
+    await tx.insert(messages).values({ kind: "notification", name: f.customerName, email: f.email, body: `New order ${reference}. R${q.total}` });
     return o;
   });
   await provider!.initiate({ reference, total: q.total });
